@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        MODELS_FILES = {
+        models_files = {
             Genre: 'genre.csv',
             Category: 'category.csv',
             User: 'users.csv',
@@ -21,13 +21,13 @@ class Command(BaseCommand):
             Title.genre.through: 'genre_title.csv'
         }
 
-        for model, file in MODELS_FILES.items():
+        for model, file in models_files.items():
             with open(f'./static/data/{file}', encoding='utf-8') as csv_data:
                 csv_reader = csv.DictReader(csv_data, delimiter=',')
                 rows = []
 
                 for row in csv_reader:
-                    for mod in MODELS_FILES.keys():
+                    for mod in models_files.keys():
                         mod_name = mod.__name__.lower()
                         for field, value in row.items():
                             if mod_name == field or (
